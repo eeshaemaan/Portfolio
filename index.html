@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eesha Emaan — Data Scientist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Medium-toned maroon & pink aesthetic — single mode, works for both dark/light environment */
+  --bg: #ad8f62;        /* warm beige */
+  --bg2: #ad8f62;       /* deeper beige */
+  --bg3: #ad8f62;       
+  --border: rgba(109, 43, 43, 0.2);
+  --text: #681616;      /* dark maroon */
+  --text-dim: #801a1a;
+  --accent: #994d4d;    /* rich maroon */
+  --accent2: #741a1a;   /* softer maroon-pink */
+  --accent3: #741a1a;
+  --card: rgba(176, 62, 92, 0.08);
+  --card-hover: rgba(176, 62, 92, 0.14);
+  --glow: rgba(193, 85, 111, 0.2);
+  --tag-bg: rgba(176, 62, 92, 0.1);
+  --tag-border: rgba(176, 62, 92, 0.3);
+  --shadow: 0 10px 28px rgba(70, 20, 35, 0.08);
+}
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.012'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 0 2rem;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(250, 243, 232, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: var(--accent);
+    font-weight: 800;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--accent2);
+  }
+
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-dim);
+    border-radius: 2px;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 100px 2rem 5rem;
+    position: relative;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.2;
+    animation: drift 16s infinite alternate;
+    z-index: 0;
+  }
+
+  .orb1 {
+    width: 500px;
+    height: 500px;
+    background: #8b3a3a;
+    top: -120px;
+    right: -80px;
+  }
+
+  .orb2 {
+    width: 350px;
+    height: 350px;
+    background: #a85858;
+    bottom: 10px;
+    left: 5%;
+    animation-delay: 2s;
+  }
+
+  @keyframes drift {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(15px, 20px) scale(1.04); }
+  }
+
+  .hero-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-titles {
+    flex: 1;
+  }
+
+  .hero-side-image {
+    flex-shrink: 0;
+  }
+
+  .hero-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent2);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    background: var(--bg2);
+    transition: transform 0.3s ease;
+  }
+
+  .hero-avatar:hover {
+    transform: scale(1.02);
+  }
+
+  .hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 4.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.2rem;
+    line-height: 1.15;
+  }
+
+  h1 .name-accent {
+    color: var(--accent);
+  }
+
+  .hero-title-line {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+
+  .hero-bio {
+    font-size: 1rem;
+    color: var(--text-dim);
+    max-width: 100%;
+    margin: 1.5rem 0 2rem 0;
+    line-height: 1.75;
+    background: var(--card);
+    padding: 1.4rem 1.8rem;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(2px);
+  }
+
+  .hero-bio strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.7rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent3);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.7rem;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent2);
+    color: var(--accent2);
+    background: rgba(168, 88, 88, 0.05);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+    margin-top: 0.2rem;
+  }
+
+  .stat-num {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent2);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+  }
+
+  section {
+    padding: 5rem 2rem;
+    position: relative;
+  }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--accent2);
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.8rem, 4.2vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .section-desc {
+    color: var(--text-dim);
+    max-width: 550px;
+    font-size: 0.9rem;
+    margin-bottom: 2.5rem;
+  }
+
+  #about, #projects, #achievements {
+    background: var(--bg2);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .about-text p {
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  .about-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1rem 1.3rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    transition: 0.2s;
+  }
+
+  .about-card:hover {
+    border-color: var(--accent2);
+    background: var(--card-hover);
+    transform: translateX(4px);
+  }
+
+  .about-card-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--tag-bg);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+  }
+
+  .skills-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .skill-category h3 {
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent2);
+    margin-bottom: 0.7rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .tag {
+    padding: 0.35rem 0.9rem;
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    transition: 0.2s;
+    cursor: default;
+    font-weight: 500;
+  }
+
+  .tag:hover {
+    background: var(--accent);
+    color: #faf3e8;
+    border-color: var(--accent);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.8rem;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 1.6rem;
+    transition: all 0.25s;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent2);
+    transform: translateY(-4px);
+    background: var(--card-hover);
+  }
+
+  .project-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: rgba(139, 58, 58, 0.25);
+    margin-bottom: 0.3rem;
+    line-height: 1;
+  }
+
+  .project-card h3 {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .project-card p {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .tech-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    background: var(--bg3);
+    padding: 0.2rem 0.6rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    display: inline-block;
+    margin-right: 0.4rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .cert-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1rem 1.2rem;
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    transition: 0.2s;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .cert-card:hover {
+    border-color: var(--accent2);
+    background: var(--card-hover);
+    transform: translateX(4px);
+  }
+
+  .cert-icon {
+    font-size: 1.8rem;
+  }
+
+  .cert-card h4 {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .cert-card p {
+    font-size: 0.7rem;
+    color: var(--accent2);
+    margin-top: 0.2rem;
+  }
+
+  .achieve-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .achieve-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.1rem 1.4rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .achieve-icon {
+    font-size: 1.5rem;
+  }
+
+  .github-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .github-img {
+    max-width: 100%;
+    border-radius: 16px;
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+  }
+
+  #contact {
+    background: var(--bg2);
+  }
+
+  .contact-simple {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    max-width: 560px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent2);
+    color: var(--accent2);
+    transform: translateX(8px);
+    background: var(--card-hover);
+  }
+
+  .contact-link-icon {
+    width: 38px;
+    height: 38px;
+    background: var(--tag-bg);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  footer {
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scroll-progress {
+    position: fixed;
+    top: 68px;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    width: 0%;
+    z-index: 99;
+    border-radius: 0 2px 2px 0;
+  }
+
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .hero-bio { padding: 1rem 1.3rem; }
+    .hero-header-row { flex-direction: column; align-items: flex-start; text-align: left; }
+    .hero-side-image { align-self: flex-start; }
+  }
+
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      background: var(--bg2);
+      backdrop-filter: blur(12px);
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      gap: 1.2rem;
+      z-index: 99;
+    }
+    .hamburger { display: flex; }
+    .hero-stats { justify-content: space-between; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+<div class="scroll-progress" id="scrollProgress"></div>
+<nav>
+  <a href="#hero" class="nav-logo">EE<span> :)</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#github">GitHub</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="hero-grid">
+    <div class="hero-content fade-in">
+      <div class="hero-header-row">
+        <div class="hero-titles">
+          <div class="hero-label">open for related opportunities</div>
+          <h1>Eesha<br><span class="name-accent">Emaan</span></h1>
+          <div class="hero-title-line">Data Scientist</div>
+        </div>
+        <div class="hero-side-image">
+          <img src="Eesha_picture.png" alt="Eesha Emaan" class="hero-avatar" onerror="this.src='https://placehold.co/120x120?text=EE'">
+        </div>
+      </div>
+      <p class="hero-bio">
+        <strong>Data Science undergraduate</strong> with hands-on experience in data cleaning, exploratory data analysis (EDA), and feature engineering with a problem-solving mindset. Proficient in writing complex SQL queries and working with relational databases to support data-driven decision-making. Skilled in data engineering workflows including ETL pipelines, connecting backend databases with frontend applications, and building interactive dashboards for clear data visualization. Built end-to-end ML pipelines from preprocessing to serialization.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">Get in touch</a>
+        <a href="CV.pdf" class="btn-outline" id="downloadCV" download>Download CV</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">6</div><div class="stat-label">projects</div></div>
+        <div class="stat"><div class="stat-num">4</div><div class="stat-label">certs</div></div>
+        <div class="stat"><div class="stat-num">2027</div><div class="stat-label">grad year</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="fade-in">
+        <div class="section-label">About me</div>
+        <h2>Data → decisions</h2>
+        <div class="about-text">
+          <p>I'm a Data Science student at FAST-NUCES Islamabad (class of 2027). I enjoy the whole data journey: cleaning messy datasets, building ML models, and creating dashboards that actually make sense.</p>
+          <p>I've worked on regression pipelines, data warehouses, and full-stack database apps. I like solving real problems with code, whether it's predicting house prices or analyzing customer behavior, providing actionable insights at end.</p>
+        </div>
+      </div>
+      <div class="about-cards fade-in">
+        <div class="about-card"><div class="about-card-icon">🎓</div><div><h4>Education</h4><p>BS Data Science, FAST-NUCES · 2023–2027</p></div></div>
+        <div class="about-card"><div class="about-card-icon">🧠</div><div><h4>ML pipelines</h4><p>preprocessing → training → serialization (joblib)</p></div></div>
+        <div class="about-card"><div class="about-card-icon">🗃️</div><div><h4>Data engineering</h4><p>ETL, star schema, complex SQL</p></div></div>
+        <div class="about-card"><div class="about-card-icon">📊</div><div><h4>Visualization</h4><p>Tableau dashboards, geospatial insights</p></div></div>
+        <div class="about-card"><div class="about-card-icon">💻</div><div><h4>Full-stack data apps</h4><p>C# + MySQL, Windows Forms frontend</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-inner">
+    <div class="fade-in"><div class="section-label">Toolkit</div><h2>What I work with</h2><p class="section-desc">Languages, libraries, and tools across projects and coursework.</p></div>
+    <div class="skills-grid fade-in">
+      <div class="skill-category"><h3>🔷 data science</h3><div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Scikit-learn</span><span class="tag">EDA</span><span class="tag">Feature Engineering</span><span class="tag">Clustering</span><span class="tag">Voting Ensemble</span><span class="tag">Model Evaluation</span></div></div>
+      <div class="skill-category"><h3>🔷 database & engineering</h3><div class="tags"><span class="tag">MySQL</span><span class="tag">Stored Procedures</span><span class="tag">Triggers</span><span class="tag">ETL Pipelines</span><span class="tag">Star Schema</span><span class="tag">OLAP</span><span class="tag">Database Design</span></div></div>
+      <div class="skill-category"><h3>🔷 viz & tools</h3><div class="tags"><span class="tag">Tableau</span><span class="tag">Matplotlib</span><span class="tag">Seaborn</span><span class="tag">Jupyter</span><span class="tag">Git</span><span class="tag">VS Code</span><span class="tag">Joblib</span></div></div>
+      <div class="skill-category"><h3>🔷 soft skills</h3><div class="tags"><span class="tag">Communication</span><span class="tag">Teamwork</span><span class="tag">Problem-solving</span><span class="tag">Adaptability</span><span class="tag">Time Management</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-inner">
+    <div class="fade-in"><div class="section-label">Projects</div><h2>Things I've built</h2><p class="section-desc">End-to-end work: ML, data engineering, full-stack apps.</p></div>
+    <div class="projects-grid">
+      <div class="project-card fade-in"><div class="project-number">01</div><h3>House Price Prediction Pipeline</h3><p>Executed complete end-to-end ML workflow: data cleaning, outlier handling, EDA, and feature engineering on 81-feature housing dataset. Trained and tuned multiple models including Random Forest and XGBoost with robust evaluation metrics. Serialized pipeline using joblib for reproducibility, production-ready predictive system.</p><div><span class="tech-badge">Python</span><span class="tech-badge">Pandas</span><span class="tech-badge">Scikit-learn</span><span class="tech-badge">XGBoost</span><span class="tech-badge">joblib</span></div></div>
+      <div class="project-card fade-in"><div class="project-number">02</div><h3>Retail Data Warehouse & ETL</h3><p>Built star schema & ETL pipeline for retail data, wrote analytical SQL queries with window functions for BI reporting.</p><div><span class="tech-badge">Python</span><span class="tech-badge">MySQL</span><span class="tech-badge">Pandas</span><span class="tech-badge">ETL</span></div></div>
+      <div class="project-card fade-in"><div class="project-number">03</div><h3>Customer Behavior & Predictive Modeling</h3><p>EDA + regression + decision trees + clustering on retail dataset to find buying patterns and actionable insights.</p><div><span class="tech-badge">Python</span><span class="tech-badge">Pandas</span><span class="tech-badge">Scikit-learn</span></div></div>
+      <div class="project-card fade-in"><div class="project-number">04</div><h3>Global Disaster Resilience – Tableau Dashboard</h3><p>Integrated EM-DAT, World Bank, and UNDP datasets into unified country-year panel for cross-domain analysis. Engineered resilience metrics; designed interactive Tableau dashboards with geospatial and trend analysis. </p><div><span class="tech-badge">Python</span><span class="tech-badge">Pandas</span><span class="tech-badge">Tableau</span></div></div>
+      <div class="project-card fade-in"><div class="project-number">05</div><h3>Event Management System</h3><p>Designed normalized schema with views, stored procedures, and triggers for business logic enforcement. Built Windows Forms frontend connected to MySQL backend; handled data via SQL queries with input validation. Full CRUD operations with complete data integrity.</p><div><span class="tech-badge">MySQL</span><span class="tech-badge">SQL</span><span class="tech-badge">C#</span><span class="tech-badge">Windows Forms</span><span class="tech-badge">CRUD</span></div></div>
+      <div class="project-card fade-in"><div class="project-number">06</div><h3>E-Commerce Desktop App</h3><p>Complete desktop system with authentication, product browsing, search functionality, cart, and checkout logic. Integrated MySQL backend with input validation; SQL-based CRUD operations powering dynamic frontend.</p><div><span class="tech-badge">C#</span><span class="tech-badge">MySQL</span><span class="tech-badge">SQL</span><span class="tech-badge">Windows Forms</span><span class="tech-badge">CRUD</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="section-inner">
+    <div class="fade-in"><div class="section-label">Credentials</div><h2>Certifications</h2><p class="section-desc">Courses that deepened my data skills — click to verify.</p></div>
+    <div class="cert-grid fade-in">
+      <a href="https://www.coursera.org/account/accomplishments/specialization/2QUC4312S1GK" target="_blank" class="cert-card"><div class="cert-icon">📘</div><div><span style="font-size:0.7rem;color:var(--accent2)">IBM</span><h4>Data Science Professional Certificate</h4><p>🔹 Click to verify →</p></div></a>
+      <a href="https://www.coursera.org/account/accomplishments/verify/Q29QHEUFXJAB" target="_blank" class="cert-card"><div class="cert-icon">🤖</div><div><span style="font-size:0.7rem;color:var(--accent2)">DeepLearning.AI</span><h4>Supervised Machine Learning</h4><p>🔹 Click to verify →</p></div></a>
+      <a href="https://www.credly.com/badges/4a83131c-2d61-4d22-9005-d23940660c03/linked_in_profile" target="_blank" class="cert-card"><div class="cert-icon">📄</div><div><span style="font-size:0.7rem;color:var(--accent2)">Microsoft</span><h4>Office Specialist: Word Associate</h4><p>🔹 Click to verify →</p></div></a>
+      <a href="https://www.credly.com/badges/2c144fd9-7d9d-4e03-a207-b92e9eb30d30/linked_in_profile" target="_blank" class="cert-card"><div class="cert-icon">📊</div><div><span style="font-size:0.7rem;color:var(--accent2)">Microsoft</span><h4>Office Specialist: PowerPoint Associate</h4><p>🔹 Click to verify →</p></div></a>
+    </div>
+  </div>
+</section>
+
+<section id="achievements">
+  <div class="section-inner">
+    <div class="fade-in"><div class="section-label">Recognition</div><h2>Achievements</h2></div>
+    <div class="achieve-list fade-in">
+      <div class="achieve-item"><div class="achieve-icon">🏆</div><div><p><strong>NaSCon 2025 Data Visualization Competition</strong> — Worked on a real-world dataset, applied EDA and full data cleaning, derived business insights, and presented actionable charts to solve a real business problem.</p></div></div>
+      <div class="achieve-item"><div class="achieve-icon">🎓</div><div><p><strong>2-Year College Scholarship (2021–2023)</strong> — Awarded for top grades in Matric exams.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="github">
+  <div class="section-inner">
+    <div class="fade-in"><div class="section-label">Open source</div><h2>GitHub</h2></div>
+    <div class="github-section fade-in">
+      <h3 style="font-size:1.3rem;">@eeshaemaan</h3>
+      <p>Explore my repos, contributions, and side projects.</p>
+      <img class="github-img" src="https://github-readme-stats.vercel.app/api?username=eeshaemaan&show_icons=true&theme=dark&hide_border=true&bg_color=faf3e8&title_color=8b3a3a&icon_color=a85858&text_color=6e4b4b" alt="GitHub Stats" onerror="this.style.display='none'" />
+      <br><br>
+      <a href="https://github.com/eeshaemaan" target="_blank" class="btn-primary" style="display:inline-flex;">View GitHub Profile</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner">
+    <div class="fade-in"><div class="section-label">Let's connect</div><h2>Reach out</h2><p class="section-desc">I'm open to internships, collaboration, or just a chat about data.</p></div>
+    <div class="contact-simple fade-in">
+      <a href="mailto:emaaneesha@gmail.com" class="contact-link"><div class="contact-link-icon">✉️</div> emaaneesha@gmail.com</a>
+      <a href="tel:+923048514466" class="contact-link"><div class="contact-link-icon">📞</div> 0304-8514466</a>
+      <a href="https://linkedin.com/in/eesha-emaan" target="_blank" class="contact-link"><div class="contact-link-icon">🔗</div> linkedin.com/in/eesha-emaan</a>
+      <a href="https://github.com/eeshaemaan" target="_blank" class="contact-link"><div class="contact-link-icon">🔷</div> github.com/eeshaemaan</a>
+    </div>
+  </div>
+</section>
+
+<footer><p>-- Eesha Emaan --</p></footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinksEl = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinksEl.classList.toggle('open'));
+  navLinksEl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinksEl.classList.remove('open')));
+
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('scrollProgress').style.width = scrolled + '%';
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(link => link.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.35 });
+  sections.forEach(s => observer.observe(s));
+
+  const faders = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => faders.observe(el));
+</script>
+</body>
+</html>
